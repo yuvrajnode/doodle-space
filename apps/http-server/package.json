@@ -1,0 +1,32 @@
+{
+  "name": "http-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "start": "node dist/index.js",
+    "dev": "pnpm run build && pnpm run start"
+  },
+  "dependencies": {
+    "@repo/prisma": "workspace:*",
+    "@types/cors": "^2.8.19",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "typescript": "^5.8.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@repo/common": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/bcrypt": "^5.0.2",
+    "@types/express": "^5.0.3",
+    "@types/jsonwebtoken": "^9.0.10"
+  }
+}
