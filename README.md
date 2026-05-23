@@ -8,68 +8,75 @@
 
 ![Alt Text](./assets/draw-mode.png)
 
-
 ## ✨ Key Features
-🌐 **Infinite Canvas**: Never run out of space. Pan and zoom freely to give your ideas the room they need to grow.
 
-🤝 **Seamless Real-Time Collaboration**: Sign up for a free account, create a room, and share the link. Brainstorm with your team, classmates, or friends in perfect sync.
+Doodle Space offers a rich set of features designed to enhance collaboration and creativity:
 
-✏️ **Complete Drawing Toolkit**: Go from concept to creation with essential tools: Pencil, Eraser, Selection, Pan, and Shapes (Rectangle, Circle, Diamond, Line, Arrow).
+- **🌐 Infinite Canvas**: Experience boundless creativity with an infinite canvas that allows you to pan and zoom freely, ensuring your ideas have ample space to grow and evolve.
 
-👆 **Total Control Over Elements**: Easily select, move, and resize any object on the canvas. Multi-level undo and redo are always at your fingertips.
+- **🤝 Seamless Real-Time Collaboration**: Sign up for a free account, create a dedicated room, and effortlessly share the link with your team, classmates, or friends. Brainstorm and work together in perfect synchronization, no matter where you are.
 
-🚪 **Flexible Rooms**: Create dedicated, private rooms for your projects. You can work solo or invite others to join your session.
+- **✏️ Complete Drawing Toolkit**: From initial concepts to refined creations, Doodle Space provides a comprehensive suite of essential drawing tools, including Pencil, Eraser, Selection, Pan, and various Shapes (Rectangle, Circle, Diamond, Line, Arrow).
 
-🚀 **Built for Speed**: No lag, no friction. Just a smooth, responsive drawing experience that lets you focus on what matters.
+- **👆 Total Control Over Elements**: Enjoy precise control over every element on your canvas. Easily select, move, and resize any object, with the added convenience of multi-level undo and redo functionality always at your fingertips.
 
+- **🚪 Flexible Rooms**: Create dedicated, private rooms for each of your projects. Whether you prefer to work solo or invite others to join your session, Doodle Space adapts to your collaborative needs.
+
+- **🚀 Built for Speed**: Designed for optimal performance, Doodle Space delivers a smooth, responsive drawing experience with virtually no lag or friction, allowing you to focus entirely on your creative process.
 
 ## 🛠️ Tech Stack
-Doodle Space is built with a modern, scalable, and efficient technology stack to ensure the best performance and user experience.
 
-- Next.js 
-- Rough.js 
-- Turborepo 
-- Prisma 
-- Websockets 
-- Express.js 
-- Typescript 
-- Zustand
+Doodle Space is built with a modern, scalable, and efficient technology stack to ensure the best performance and user experience:
 
+| Category         | Technologies                                     | Description                                                                 |
+| :--------------- | :----------------------------------------------- | :-------------------------------------------------------------------------- |
+| **Frontend**     | Next.js, Rough.js, Zustand                       | Dynamic UI, hand-drawn style graphics, and state management                 |
+| **Monorepo**     | Turborepo                                        | Efficient management of multiple packages within a single repository        |
+| **Database**     | Prisma                                           | Next-generation ORM for seamless database access and management             |
+| **Real-Time**    | WebSockets                                       | Enables real-time communication for collaborative features                  |
+| **Backend**      | Express.js                                       | Robust and flexible web application framework for API services              |
+| **Language**     | TypeScript                                       | Provides type safety and enhances code quality and maintainability          |
 
 ## 🚀 Getting Started
-Ready to run Doodle Space locally? Follow these simple steps.
+
+Ready to run Doodle Space locally? Follow these simple steps to set up your development environment:
 
 ### Prerequisites
-Ensure you have Node.js (v18 or later) and pnpm installed on your machine.
 
-#### Installation
-Clone the Repository
+Ensure you have the following installed on your machine:
+- **Node.js** (v18 or later)
+- **pnpm** (for package management)
 
-```git clone https://github.com/yuvrajnode/doodle-space.git```
+### Installation
 
-#### Navigate to the Directory
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/yuvrajnode/doodle-space.git
+   ```
 
-```cd doodle-space```
+2. **Navigate to the Directory**:
+   ```bash
+   cd doodle-space
+   ```
 
-#### Install Dependencies
+3. **Install Dependencies**:
+   ```bash
+   pnpm install
+   ```
 
-```pnpm install```
+4. **Run the Development Server**:
+   ```bash
+   pnpm run dev
+   ```
 
-#### Run the Development Server
-
-```pnpm run dev```
-
-#### Open http://localhost:3002 in your browser to see the result.
+Once the server is running, open `http://localhost:3002` in your browser to access the application.
 
 ## 🙌 Contributing
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
 
-- Fork the Project
+Contributions are highly valued and greatly appreciated! They are what make the open-source community such an amazing place to learn, inspire, and create. If you'd like to contribute, please follow these steps:
 
-- Create your Feature Branch (git checkout -b feature/AmazingFeature)
-
-- Commit your Changes (git commit -m 'Add some AmazingFeature')
-
-- Push to the Branch (git push origin feature/AmazingFeature)
-
-- Open a Pull Request
+1. **Fork the Project**
+2. **Create your Feature Branch**: `git checkout -b feature/AmazingFeature`
+3. **Commit your Changes**: `git commit -m 'Add some AmazingFeature'`
+4. **Push to the Branch**: `git push origin feature/AmazingFeature`
+5. **Open a Pull Request**
