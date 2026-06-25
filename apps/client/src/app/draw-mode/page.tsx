@@ -7,7 +7,7 @@ import { useState } from "react";
 import JoinRoom from "@/components/draw-mode/joinRoom";
 import CreateRoom from "@/components/draw-mode/createRoom";
 
-export default function () {
+export default function DrawModePage() {
   const user = useUserStore((s) => s.user);
   const [joinRoom, setJoinRoom] = useState(false);
   const [createRoom, setCreateRoom] = useState(false);

@@ -8,7 +8,6 @@ export default function useGuard() {
   const [userData, setUserData] = useState({
     name: '',
     email: '',
-    avatar: '',
   });
 
   useEffect(() => {
@@ -26,7 +25,6 @@ export default function useGuard() {
         setUserData({
           name: user.name,
           email: user.email,
-          avatar: user.avatar
         });
         setVerified(true);
       } catch (error) {

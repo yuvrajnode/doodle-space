@@ -1,6 +1,6 @@
 import Canvas from "@/components/canvas/Canvas";
 
-export default function canvasPage() {
+export default function CanvasPage() {
   return (
     <Canvas />
   );

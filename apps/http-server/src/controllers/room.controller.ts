@@ -1,3 +1,4 @@
+import "../config/env.js";
 import { CreateRoomSchema } from "@repo/common/types";
 import { Response } from "express";
 import { emitError, emitSuccess } from "../utils/response.util.js";
@@ -49,7 +50,6 @@ const roomShapes = async (req: CustomRequest, res: Response) => {
         });
 
         if (!isRoom) {
-            console.log('room not found')
             emitError({ res, error: `Room not found`, statusCode: 400 });
             return;
         }
