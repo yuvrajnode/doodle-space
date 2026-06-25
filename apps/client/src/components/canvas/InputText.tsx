@@ -53,7 +53,7 @@ export function InputText({
               y: textInput.cords.y,
               text: textInput.value,
               font: "24px 'Indie Flower'",
-              color: ''
+              color: '#00f0ff'
             };
             if (mode === "collaborative" && roomId) {
               createShape(roomId, text);
