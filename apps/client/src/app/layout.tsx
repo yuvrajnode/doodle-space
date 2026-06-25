@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { EB_Garamond } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 
-const ebGaramond = EB_Garamond({
+const spaceGrotesk = Space_Grotesk({
   variable: "--font-geist-sans",
   subsets: ["latin"],
 });
@@ -26,15 +26,30 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className={`${ebGaramond.className} antialiased`}>
+      <body className={`${spaceGrotesk.className} antialiased noise`}>
         <Toaster
           position="top-right"
           toastOptions={{
-            duration: 5000,
+            duration: 4000,
             style: {
-              border: "1px solid #737373",
-              background: "#ffffff",
-              color: "#000000",
+              background: "rgba(10, 10, 30, 0.9)",
+              backdropFilter: "blur(20px)",
+              border: "1px solid rgba(255, 255, 255, 0.1)",
+              color: "#e0e0ff",
+              borderRadius: "12px",
+              fontSize: "14px",
+            },
+            success: {
+              iconTheme: {
+                primary: "#00f0ff",
+                secondary: "#050510",
+              },
+            },
+            error: {
+              iconTheme: {
+                primary: "#ff3d3d",
+                secondary: "#050510",
+              },
             },
           }}
         />
