@@ -1,3 +1,4 @@
+import "./config/env.js";
 import { IUser } from "./types/types.js";
 import WebSocket from "ws";
 import { prismaClient } from '@repo/prisma/client'
@@ -25,7 +26,7 @@ const processShapeQueue = async () => {
             await prismaClient.shape.delete({ where: { id: operation.shapeId } });
         }
     } catch (error) {
-        console.log('error');
+        console.error('Shape queue processing error:', error);
     }
 
     isProcessingQueue = false;
@@ -39,15 +40,10 @@ const getUser = (userId: string) => {
 
 const addConnection = (ws: WebSocket, userId: string, username: string) => {
     users.set(userId, { ws, userId, username, rooms: new Set() });
-    console.log(`User connected: ${username} (Total online: ${users.size})`);
 };
 
 const removeConnection = (userId: string) => {
-    const user = getUser(userId);
-    if (user) {
-        console.log(`User disconnected: ${user.username}`);
-        users.delete(userId);
-    }
+    users.delete(userId);
 };
 
 const roomExists = async (roomId: string) => {
@@ -81,7 +77,6 @@ const broadcastToRoom = (roomId: string, message: object) => {
 };
 
 const joinRoom = async (userId: string, roomId: string) => {
-    console.log('joining room');
     if (!await roomExists(roomId)) {
         const user = getUser(userId);
         if (user) user.ws.send(JSON.stringify({ type: 'roomNotFound' }));
@@ -91,7 +86,6 @@ const joinRoom = async (userId: string, roomId: string) => {
     if (!user || user.rooms.has(roomId)) return;
 
     user.rooms.add(roomId);
-    console.log(user.rooms);
     broadcastToRoom(roomId, { type: 'joinRoom', payload: { username: user.username } });
     broadcastToRoom(roomId, { type: 'usersList', payload: { participants: getParticipants(roomId) } });
 };
@@ -121,7 +115,7 @@ const createShape = async (userId: string, shape: Shape, roomId: string) => {
             shape,
         }
     });
-    
+
     processShapeQueue();
 };
 
@@ -151,12 +145,12 @@ const deleteShape = async (userId: string, shapeId: string, roomId: string) => {
         type: 'delete',
         payload: { shapeId }
     });
-    
+
     shapeOperationQueue.push({
         type: 'delete',
         shapeId: shapeId,
     });
-    
+
     processShapeQueue();
 };
 

@@ -5,8 +5,7 @@ export const createRoom = async (roomData: { linkId: string }) => {
     try {
         const token = localStorage.getItem('token');
         if (!token) {
-            console.log('no token');
-            return;
+            throw new Error('Not authenticated');
         }
         const response = await axios.post(`${HTTP_URL}/room/create`, roomData, {
             headers: {
@@ -24,8 +23,7 @@ export const getExistingShapes = async (roomId: string) => {
     try {
         const token = localStorage.getItem('token');
         if (!token) {
-            console.log('no token');
-            return;
+            throw new Error('Not authenticated');
         }
         const response = await axios.get(`${HTTP_URL}/room/shapes/${roomId}`, {
             headers: {
@@ -35,13 +33,11 @@ export const getExistingShapes = async (roomId: string) => {
         const data = response.data.result.shapes;
 
         const shapes = data.map((currShape: { shape: string }) => {
-            const shape = currShape.shape;
-            return shape;
+            return currShape.shape;
         });
-        console.log(shapes);
         return shapes;
     } catch (error) {
         const err = error as AxiosError<{ error: string }>;
-        throw new Error(err.response?.data.error || `Failed to fetch shapes ${error}`);
+        throw new Error(err.response?.data.error || `Failed to fetch shapes`);
     }
 }

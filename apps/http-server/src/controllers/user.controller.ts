@@ -1,3 +1,4 @@
+import "../config/env.js";
 import { Request, Response } from "express";
 import { CreateUserSchema, signInSchema } from "@repo/common/types";
 import { prismaClient } from "@repo/prisma/client";
@@ -16,7 +17,7 @@ const signup = async (req: Request, res: Response) => {
 
     const { name, email, password } = data;
     const existingUser = await prismaClient.user.findFirst({
-      where: { name, email },
+      where: { email },
     });
     if (existingUser) {
       emitError({ res, error: `User already exists`, statusCode: 409 });

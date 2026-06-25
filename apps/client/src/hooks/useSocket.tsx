@@ -38,7 +38,6 @@ const connect = (
   wsInstance = ws;
 
   ws.onopen = () => {
-    console.log('WebSocket connection established');
     isConnecting = false;
     setSocketStatus(SocketStatus.connected);
     connectionQueue.forEach(action => action());
@@ -46,14 +45,12 @@ const connect = (
   };
 
   ws.onclose = () => {
-    console.log('WebSocket connection closed');
     isConnecting = false;
     wsInstance = null;
     setSocketStatus(SocketStatus.disconnected);
   };
 
-  ws.onerror = (error) => {
-    console.error('WebSocket error:', error);
+  ws.onerror = () => {
     isConnecting = false;
     wsInstance = null;
     setSocketStatus(SocketStatus.disconnected);
@@ -107,8 +104,6 @@ export default function useSocket() {
             case 'delete':
               setShapes(prev => prev.filter(s => s.id !== payload.shapeId));
               break;
-            default:
-              console.warn('Unknown message type:', type);
           }
         } catch (e) {
           console.error("Failed to parse message:", e);
@@ -120,16 +115,13 @@ export default function useSocket() {
   const sendMessage = (type: string, payload: any) => {
     const action = () => {
       if (wsInstance?.readyState === WebSocket.OPEN) {
-        console.log('sending msg');
         wsInstance.send(JSON.stringify({ type, payload }));
       }
     };
 
     if (wsInstance?.readyState === WebSocket.OPEN) {
-      console.log('sending join msg here');
       action();
     } else {
-      console.log('pushing join msg in queue')
       connectionQueue.push(action);
       if (!wsInstance && !isConnecting) {
         connect(roomId, setSocketStatus);
@@ -138,7 +130,6 @@ export default function useSocket() {
   };
 
   const joinRoom = useCallback((roomId: string) => {
-    console.log('inside join room');
     sendMessage('joinRoom', { roomId });
 
     if (pathname !== `/canvas/room/${roomId}`) {
