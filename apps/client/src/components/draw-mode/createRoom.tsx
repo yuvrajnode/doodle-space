@@ -1,19 +1,17 @@
 import { useState } from "react";
 import Button from "../forms/button";
 import Input from "../forms/input";
-import { X, Copy, Check } from "lucide-react";
+import { X, Copy, Check, Sparkles } from "lucide-react";
 import { nanoid } from "nanoid";
 import { createRoom } from "@/api/room";
 import toast from "react-hot-toast";
 import useSocket from "@/hooks/useSocket";
-import useSessionMode from "@/hooks/useSessionMode";
 
-export default function CreateRoom({ setCreateRoom }: any) {
+export default function CreateRoom({ setCreateRoom }: { setCreateRoom: (v: boolean) => void }) {
   const [roomLink, setRoomLink] = useState("");
   const [isCopied, setIsCopied] = useState(false);
   const [isRoomCreated, setIsRoomCreated] = useState(false);
   const [loader, setLoader] = useState(false);
-  const { mode, roomId } = useSessionMode();
   const { joinRoom } = useSocket();
 
   const generateRoomLink = async () => {
@@ -22,13 +20,12 @@ export default function CreateRoom({ setCreateRoom }: any) {
       const roomId = nanoid(15);
       const link = `${window.location.origin}/canvas/room/${roomId}`;
       setRoomLink(link);
-      const roomData = { linkId: roomId }
-      await createRoom(roomData);
-      toast.success("Room created successfully! You can now share the link with others.");
+      await createRoom({ linkId: roomId });
+      toast.success("Room created!");
       setIsRoomCreated(true);
-      setLoader(false);
     } catch (error: any) {
-      toast.error(error.message || "Oops! Something went wrong during room creation.");
+      toast.error(error.message || "Failed to create room.");
+    } finally {
       setLoader(false);
     }
   };
@@ -38,75 +35,80 @@ export default function CreateRoom({ setCreateRoom }: any) {
       await navigator.clipboard.writeText(roomLink);
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
-    } catch (err) {
-      console.error('Failed to copy: ', err);
+    } catch {
+      toast.error("Failed to copy link");
     }
   };
 
   return (
     <div
-      className="fixed inset-0 w-full h-full flex justify-center items-center z-50 bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 flex justify-center items-center z-50 bg-black/60 backdrop-blur-sm"
       onClick={() => setCreateRoom(false)}
     >
-      <div
-        className="relative"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="border border-neutral-800 p-4 w-72 sm:p-6 sm:w-96 min-h-72 flex flex-col gap-6 rounded-2xl bg-neutral-900/90 backdrop-blur-md shadow-2xl">
-          <div className="flex justify-between items-center">
-            <div className="text-2xl text-white font-semibold">Create New Room</div>
-            <div
+      <div className="relative" onClick={(e) => e.stopPropagation()}>
+        <div className="glass-strong rounded-2xl p-6 sm:p-8 w-80 sm:w-[420px] min-h-72">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold text-white">Create Room</h2>
+            <button
               onClick={() => setCreateRoom(false)}
-              className="cursor-pointer hover:bg-neutral-700 p-2 rounded-lg transition-colors"
+              className="p-2 rounded-xl hover:bg-white/[0.06] transition-colors"
             >
-              <X className="text-white w-5 h-5" />
-            </div>
+              <X className="text-white/50 w-5 h-5" />
+            </button>
           </div>
 
-          <div className="flex flex-col gap-4">
-
-            {isRoomCreated ? <div className="flex flex-col gap-4">
-              <div className="flex flex-col gap-2">
-                <div className="flex gap-2 justify-center items-center">
+          {isRoomCreated ? (
+            <div className="flex flex-col gap-5">
+              <div className="flex gap-2 items-end">
+                <div className="flex-1">
                   <Input
-                    label="Room Link Generated"
+                    label="Room Link"
                     value={roomLink}
                     readOnly
-                    className="flex-1 bg-neutral-800 border-neutral-700 text-neutral-200 w-52 sm:w-72"
+                    className="w-full text-sm"
                   />
-                  <Button
-                    onClick={copyToClipboard}
-                    className="px-1 py-3 mt-9 bg-neutral-200 hover:bg-neutral-300 border border-neutral-600 flex justify-center items-center"
-                  >
-                    {isCopied ? <Check className="w-4 h-4 text-green-700" /> : <Copy className="w-4 h-4" />}
-                  </Button>
                 </div>
-              </div>
-
-              <div className="text-neutral-400 bg-neutral-800/50 p-3 rounded-lg">
-                Share this link with others to invite them to your room.
-              </div>
-
-              <div className="flex gap-2">
-                <Button
-                  onClick={() => {
-                    const roomId = roomLink.split('/').pop() || '';
-                    joinRoom(roomId);
-                  }}
-                  className=""
+                <button
+                  onClick={copyToClipboard}
+                  className="mb-0.5 p-3 rounded-xl bg-white/[0.06] border border-white/[0.08] hover:bg-white/[0.1] transition-colors"
                 >
-                  Join Room
-                </Button>
+                  {isCopied ? <Check className="w-4 h-4 text-emerald-400" /> : <Copy className="w-4 h-4 text-white/60" />}
+                </button>
               </div>
-            </div> : <div className="flex flex-col gap-4">
-              <p className="text-neutral-300">
-                Click the button below to generate a new room link that you can share with others.
-              </p>
-              <Button onClick={generateRoomLink} className="w-full">
-                {loader ? 'Generating Room...' : 'Generate Room Link'}
+
+              <div className="text-white/30 text-sm bg-white/[0.02] p-3 rounded-xl border border-white/[0.06]">
+                Share this link to invite others to your room.
+              </div>
+
+              <Button
+                onClick={() => {
+                  const roomId = roomLink.split('/').pop() || '';
+                  joinRoom(roomId);
+                }}
+              >
+                Join Room
               </Button>
-            </div>}
-          </div>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-5">
+              <p className="text-white/40 leading-relaxed">
+                Generate a unique room link that you can share with collaborators.
+              </p>
+              <Button onClick={generateRoomLink} disabled={loader}>
+                {loader ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <span className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
+                    Generating...
+                  </span>
+                ) : (
+                  <span className="flex items-center justify-center gap-2">
+                    <Sparkles className="w-4 h-4" />
+                    Generate Room Link
+                  </span>
+                )}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
     </div>

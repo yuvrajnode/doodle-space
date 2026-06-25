@@ -1,14 +1,12 @@
 import Button from "../forms/button";
 import Input from "../forms/input";
-import { X } from "lucide-react";
+import { X, ArrowRight } from "lucide-react";
 import useSocket from "@/hooks/useSocket";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useSessionMode from "@/hooks/useSessionMode";
 
-export default function JoinRoom({ setJoinRoom }: any) {
+export default function JoinRoom({ setJoinRoom }: { setJoinRoom: (v: boolean) => void }) {
   const [link, setLink] = useState("");
-  const { mode, roomId } = useSessionMode();
   const { joinRoom } = useSocket();
 
   function getRoomIdFromLink() {
@@ -16,44 +14,50 @@ export default function JoinRoom({ setJoinRoom }: any) {
       const url = new URL(link.trim());
       const parts = url.pathname.split('/').filter(Boolean);
       return parts[parts.length - 1];
-    } catch (e) {
-      console.error("Invalid URL format:", e);
+    } catch {
+      return undefined;
     }
   }
 
   return (
     <div
-      className="fixed inset-0 w-full h-full flex justify-center items-center z-50 bg-black/50 backdrop-blur-sm"
+      className="fixed inset-0 flex justify-center items-center z-50 bg-black/60 backdrop-blur-sm"
       onClick={() => setJoinRoom(false)}
     >
       <div className="relative" onClick={(e) => e.stopPropagation()}>
-        <div className="border border-neutral-800 p-4 w-72 sm:p-6 sm:w-96 h-72 flex flex-col gap-10 rounded-2xl bg-neutral-900/80 backdrop-blur-md shadow-2xl">
-          <div className="flex justify-between items-center">
-            <div className="text-3xl text-white">Join Room</div>
-            <div
+        <div className="glass-strong rounded-2xl p-6 sm:p-8 w-80 sm:w-[420px]">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-semibold text-white">Join Room</h2>
+            <button
               onClick={() => setJoinRoom(false)}
-              className="cursor-pointer hover:bg-neutral-700 p-2 rounded-lg transition-colors"
+              className="p-2 rounded-xl hover:bg-white/[0.06] transition-colors"
             >
-              <X className="text-white" />
-            </div>
+              <X className="text-white/50 w-5 h-5" />
+            </button>
           </div>
-          <div className="flex flex-col gap-4">
+
+          <div className="flex flex-col gap-5">
             <Input
               label="Room Link"
-              placeholder="Enter Room Link"
-              className=""
+              placeholder="Paste room link here"
+              className="w-full"
               value={link}
               onChange={(e) => setLink(e.target.value)}
             />
-            <Button className={`sm:w-full`} onClick={() => {
-              const roomId = getRoomIdFromLink();
-              if (roomId) {
-                joinRoom(roomId);
-              } else {
-                toast.error("Invalid room link. Please check the format.");
-              }
-            }}>
-              Join Room
+            <Button
+              onClick={() => {
+                const roomId = getRoomIdFromLink();
+                if (roomId) {
+                  joinRoom(roomId);
+                } else {
+                  toast.error("Invalid room link format.");
+                }
+              }}
+            >
+              <span className="flex items-center justify-center gap-2">
+                Join Room
+                <ArrowRight className="w-4 h-4" />
+              </span>
             </Button>
           </div>
         </div>
