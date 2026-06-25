@@ -443,10 +443,10 @@ export default function Canvas() {
         panOffset={panOffset}
       />
 
-      <div className="absolute top-6 left-6">
+      <div className="absolute top-6 left-6 z-10">
         <div className="text-2xl sm:text-3xl">
           ძထძℓ౿
-          <span className="px-1.5 py-0.5 rounded-xl text-cyan-400">ᦓραс౿</span>
+          <span className="px-1.5 py-0.5 text-[#00f0ff] glow-text-cyan">ᦓραс౿</span>
         </div>
       </div>
       <div className="fixed top-6 right-6 z-20">
@@ -454,20 +454,22 @@ export default function Canvas() {
       </div>
       <div>
         {mode === 'solo' ? <UndoRedo /> : <Logout />}
-        {mode === 'collaborative' && <div><button
-          onClick={toggleCollaborationPanel}
-          className="fixed bottom-6 right-6 sm:bottom-6 sm:right-6 bg-neutral-700/60 hover:bg-neutral-800 hover:cursor-pointer text-white tracking-wider p-3 rounded-lg shadow-lg transition-colors flex items-center gap-2"
-        >
-          <Users className="w-5 h-5" />
-          <span className="hidden md:inline">View Participants</span>
-        </button>
-
-          <CollaborationPanel
-            isVisible={showCollabPanel}
-            onClose={closeCollaborationPanel}
-          />
-        </div>}
+        {mode === 'collaborative' && (
+          <div>
+            <button
+              onClick={toggleCollaborationPanel}
+              className="fixed bottom-6 right-6 glass-strong rounded-xl px-4 py-2.5 text-white/60 hover:text-[#00f0ff] transition-all duration-200 flex items-center gap-2 cursor-pointer hover:shadow-[0_0_15px_rgba(0,240,255,0.1)]"
+            >
+              <Users className="w-4 h-4" />
+              <span className="hidden md:inline text-sm">Participants</span>
+            </button>
+            <CollaborationPanel
+              isVisible={showCollabPanel}
+              onClose={closeCollaborationPanel}
+            />
+          </div>
+        )}
       </div>
-    </div >
+    </div>
   );
 }
