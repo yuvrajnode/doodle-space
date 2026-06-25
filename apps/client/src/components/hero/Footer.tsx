@@ -3,37 +3,36 @@ import { Github, Heart, Linkedin, Mail, Twitter } from "lucide-react";
 export function Footer() {
     const socialLinks = [
         {
-            icon: <Github className="w-6 h-6 hover:text-cyan-400 transition" />,
-            href: "https://github.com/nissha29/Melodia",
+            icon: <Github className="w-5 h-5" />,
+            href: "https://github.com/yuvrajnode",
             label: "GitHub",
         },
         {
-            icon: <Linkedin className="w-6 h-6 text-blue-400 hover:text-blue-500 transition" />,
-            href: "https://www.linkedin.com/in/nisha-kashyap-5972a9273/",
+            icon: <Linkedin className="w-5 h-5" />,
+            href: "https://www.linkedin.com/in/yuvrajnode/",
             label: "LinkedIn",
         },
         {
-            icon: <Twitter className="w-6 h-6 text-cyan-400 hover:text-cyan-300 transition" />,
-            href: "https://x.com/nissha297",
+            icon: <Twitter className="w-5 h-5" />,
+            href: "https://x.com/yuvrajnode",
             label: "Twitter",
         },
         {
-            icon: <Mail className="w-6 h-6 text-rose-400 hover:text-rose-300 transition" />,
-            href: "mailto:nishakashyap2907@gmail.com",
+            icon: <Mail className="w-5 h-5" />,
+            href: "mailto:yuvrajsingh9027249999@gmail.com",
             label: "Email",
         },
     ];
 
     return (
-        <footer className="w-full bg-neutral-950 text-white border-t border-neutral-800 py-5 px-4">
-            <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-        
-                <div className="lg:text-2xl sm:text-3xl">
+        <footer className="w-full border-t border-white/[0.06] py-8 px-4 mt-20">
+            <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+                <div className="text-2xl">
                     ძထძℓ౿
-                    <span className="px-1.5 py-0.5 rounded-xl text-cyan-400">ᦓραс౿</span>
+                    <span className="px-1.5 py-0.5 text-[#00f0ff] glow-text-cyan">ᦓραс౿</span>
                 </div>
-            
-                <div className="flex gap-3 mt-4 md:mt-0">
+
+                <div className="flex gap-4">
                     {socialLinks.map((link, idx) => (
                         <a
                             key={idx}
@@ -41,6 +40,7 @@ export function Footer() {
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label={link.label}
+                            className="text-white/30 hover:text-[#00f0ff] transition-colors duration-200"
                         >
                             {link.icon}
                         </a>
@@ -48,12 +48,12 @@ export function Footer() {
                 </div>
             </div>
 
-            <div className="max-w-4xl mx-auto mt-6 flex flex-col md:flex-row items-center justify-between gap-2">
-                <span className="text-sm text-neutral-500">
-                    © {new Date().getFullYear()} Doodle Space. All rights reserved.
+            <div className="max-w-5xl mx-auto mt-6 flex flex-col md:flex-row items-center justify-between gap-2">
+                <span className="text-sm text-white/20">
+                    &copy; {new Date().getFullYear()} Doodle Space. All rights reserved.
                 </span>
-                <span className="flex items-center gap-1 text-sm text-neutral-500">
-                    Made with <Heart className="text-rose-400 w-4 h-4" /> by Nisha
+                <span className="flex items-center gap-1.5 text-sm text-white/20">
+                    Made with <Heart className="text-red-400/60 w-3.5 h-3.5" /> by Yuvraj
                 </span>
             </div>
         </footer>
