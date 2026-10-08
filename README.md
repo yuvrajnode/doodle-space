@@ -1,6 +1,6 @@
-# 🎨 Doodle Space
+# Doodle Space · Real-Time Collaborative Whiteboard
 
-### A blazingly fast, intuitive, and collaborative digital canvas for your ideas. Doodle Space is where creativity meets simplicity.
+A collaborative canvas built with Next.js, Turborepo, Prisma and WebSockets. Create a room, share its link and draw together with an infinite canvas and shared drawing tools.
 
 ![Alt Text](./assets/landingPage.png)
 
